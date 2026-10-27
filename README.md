@@ -128,9 +128,6 @@ test suite, builds a release APK and uploads it as an artifact. Add
 `GOOGLE_SERVICES_JSON` and `EXPO_ENV` as repository secrets to include Firebase and
 Google sign-in.
 
-> A Play Store release needs `targetSdk 35`; Expo SDK 52 targets 34, so store
-> submission requires an SDK upgrade first. Direct APK distribution does not.
-
 ---
 
 ## How the AI is wired
