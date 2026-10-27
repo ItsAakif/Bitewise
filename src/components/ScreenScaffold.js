@@ -61,7 +61,7 @@ export const ScreenScaffold = ({
   const body = <View style={[styles.body, !scroll && styles.bodyFill]}>{children}</View>;
 
   return (
-    <View style={[styles.container, { paddingTop: onBack ? 0 : insets.top }]}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
       {header}
       {scroll ? (
         <ScrollView
