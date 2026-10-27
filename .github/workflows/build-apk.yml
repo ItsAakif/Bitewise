@@ -1,0 +1,80 @@
+name: Build Android APK
+
+# Builds an installable APK on every push to main, and on demand. This is for
+# direct distribution from GitHub Releases: no store fee, no review, no tester
+# gate. It is not a Play Store upload.
+#
+# Optional repository secrets, both JSON/text blobs:
+#   GOOGLE_SERVICES_JSON  contents of google-services.json  (enables Google sign-in)
+#   EXPO_ENV              contents of .env                  (Firebase + AI config)
+# Without them the build still succeeds; the app falls back to local accounts.
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+  workflow_dispatch:
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint and behavioural checks
+        run: npm run lint && npm run smoke
+
+      - name: Write Firebase config if provided
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -n "$GOOGLE_SERVICES_JSON" ]; then
+            printf '%s' "$GOOGLE_SERVICES_JSON" > google-services.json
+            echo "wrote google-services.json"
+          else
+            echo "no GOOGLE_SERVICES_JSON secret — building without Firebase"
+          fi
+
+      - name: Write .env if provided
+        env:
+          EXPO_ENV: ${{ secrets.EXPO_ENV }}
+        run: |
+          if [ -n "$EXPO_ENV" ]; then
+            printf '%s\n' "$EXPO_ENV" > .env
+            echo "wrote .env"
+          else
+            echo "no EXPO_ENV secret — app will use local accounts"
+          fi
+
+      - name: Generate the native project
+        run: npx expo prebuild --platform android --no-install
+
+      - name: Build the APK
+        working-directory: android
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Report the output
+        run: ls -lh android/app/build/outputs/apk/release/
+
+      - name: Upload the APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: bitewise-apk
+          path: android/app/build/outputs/apk/release/*.apk
+          if-no-files-found: error

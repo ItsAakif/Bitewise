@@ -1,0 +1,83 @@
+# ── dependencies ────────────────────────────────────────────────────────────
+node_modules/
+
+# ── Expo / build output ─────────────────────────────────────────────────────
+.expo/
+.expo-shared/
+dist/
+web-build/
+.expo-export/
+.verify-export/
+.web-build/
+expo-env.d.ts
+
+# Native projects are generated from app.json by `npx expo prebuild`, so they are
+# not tracked. app.json stays the single source of truth.
+/android
+/ios
+
+# ── secrets and per-machine config ──────────────────────────────────────────
+.env
+.env*.local
+google-services.json
+GoogleService-Info.plist
+*.jks
+*.keystore
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.pem
+
+# ── build artefacts ────────────────────────────────────────────────────────
+*.apk
+*.aab
+*.orig.*
+.metro-health-check*
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# ── agent and editor scratch ───────────────────────────────────────────────
+# Notes, transcripts and research produced while building the app. Useful to the
+# author, noise in a public repository.
+.planning/
+*-feature-gaps/
+research/
+notes/
+scratch/
+
+# Agent instruction files and tool state. Each agent writes its own; none of it
+# belongs in the project history.
+.agent/
+.agents/
+.claude/
+CLAUDE.md
+AGENTS.md
+.cursor/
+.cursorrules
+.continue/
+.aider
+.aider.conf.yml
+.cody/
+.windsurf/
+.kiro/
+.junie/
+.roo/
+.trae/
+.void/
+.zed/
+copilot-instructions.md
+.mcp.json
+mcp.json
+*.transcript.md
+
+# Editor / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ── misc ───────────────────────────────────────────────────────────────────
+*.tsbuildinfo

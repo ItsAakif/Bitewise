@@ -1,0 +1,16 @@
+# Normalise line endings in the repository; each platform checks out natively.
+* text=auto
+
+# Binary assets — never diff or convert these.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.ttf binary
+*.otf binary
+*.jar binary
+*.keystore binary
+
+# Generated files that should not appear in diffs.
+package-lock.json linguist-generated=true

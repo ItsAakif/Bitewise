@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "BiteWise",
+    "slug": "nutrition_coach_new",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "jsEngine": "hermes",
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "jsEngine": "hermes",
+      "package": "com.anonymous.nutrition_coach_new"
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-asset",
+      "expo-font",
+      "expo-notifications",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "BiteWise uses the camera to scan a food barcode."
+        }
+      ],
+      "@react-native-google-signin/google-signin"
+    ],
+    "extra": {
+      "apiBaseUrl": ""
+    }
+  }
+}
