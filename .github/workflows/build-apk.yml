@@ -51,16 +51,34 @@ jobs:
             echo "no GOOGLE_SERVICES_JSON secret — building without Firebase"
           fi
 
-      - name: Write .env if provided
+      - name: Write .env and export it to the build environment
         env:
           EXPO_ENV: ${{ secrets.EXPO_ENV }}
         run: |
           if [ -n "$EXPO_ENV" ]; then
             printf '%s\n' "$EXPO_ENV" > .env
-            echo "wrote .env"
+            # Gradle invokes `expo export:embed`, which reads process.env and does
+            # NOT load .env. Writing to $GITHUB_ENV is what actually gets the
+            # EXPO_PUBLIC_* values inlined into the bundle.
+            grep -E '^[A-Za-z_][A-Za-z0-9_]*=' .env >> "$GITHUB_ENV"
+            echo "exported $(grep -cE '^[A-Za-z_][A-Za-z0-9_]*=' .env) variables to the build"
           else
             echo "no EXPO_ENV secret — app will use local accounts"
           fi
+
+      - name: Confirm the build can see its config
+        run: |
+          if [ -n "$EXPO_PUBLIC_FIREBASE_PROJECT_ID" ]; then
+            echo "firebase project: $EXPO_PUBLIC_FIREBASE_PROJECT_ID"
+          else
+            echo "EXPO_PUBLIC_FIREBASE_PROJECT_ID missing — this build will use local accounts"
+          fi
+          if [ -n "$EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID" ]; then
+            echo "google client id present"
+          else
+            echo "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID missing — Google button stays disabled"
+          fi
+          test -f google-services.json && echo "google-services.json present" || echo "google-services.json missing"
 
       - name: Generate the native project
         run: npx expo prebuild --platform android --no-install
