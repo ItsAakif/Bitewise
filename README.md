@@ -9,13 +9,44 @@ twelve micronutrients against Indian reference intakes — and AI that only runs
 you hand it your own key.
 
 <p>
-  <a href="../../actions/workflows/build-apk.yml"><img alt="Build" src="https://github.com/OWNER/REPO/actions/workflows/build-apk.yml/badge.svg"></a>
+  <a href="https://github.com/ItsAakif/Bitewise/actions/workflows/build-apk.yml"><img alt="Build" src="https://github.com/ItsAakif/Bitewise/actions/workflows/build-apk.yml/badge.svg"></a>
   <img alt="Platform" src="https://img.shields.io/badge/platform-Android%20%C2%B7%20iOS%20%C2%B7%20Web-black">
   <img alt="Licence" src="https://img.shields.io/badge/licence-MIT-black">
   <img alt="Checks" src="https://img.shields.io/badge/checks-121%20passing-black">
+  <img alt="Foods" src="https://img.shields.io/badge/foods-174-black">
+  <a href="https://github.com/ItsAakif/Bitewise/releases/latest"><img alt="Download" src="https://img.shields.io/badge/download-APK%20%C2%B7%20Android-black?logo=android"></a>
 </p>
 
-> Replace `OWNER/REPO` in the build badge with your repository path.
+---
+
+## Screens
+
+Captured on a phone with an empty account, because the empty state is what most
+trackers get wrong: it should say what will appear, not show you a zero and call it
+a day.
+
+<table>
+  <tr>
+    <td align="center"><img src="img/today.jpg" width="240"><br><sub><b>Today</b> — remaining calories, macro progress, water</sub></td>
+    <td align="center"><img src="img/today-meals.jpg" width="240"><br><sub><b>Today, continued</b> — last seven days, meals, quick actions</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="img/diary.jpg" width="240"><br><sub><b>Diary</b> — the day split by meal, totals pinned above</sub></td>
+    <td align="center"><img src="img/profile.jpg" width="240"><br><sub><b>Profile</b> — streak, days logged, workouts, goals</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="img/profile-menu.jpg" width="240"><br><sub><b>Profile, continued</b> — recipes, planning, reminders, settings</sub></td>
+    <td align="center"><img src="img/settings-targets.jpg" width="240"><br><sub><b>Targets</b> — calories, macros, water, steps, sleep</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="img/settings-nutrition.jpg" width="240"><br><sub><b>Micronutrients</b> — ICMR-NIN 2020 reference intakes, per life stage</sub></td>
+    <td align="center"><img src="img/settings-ai.jpg" width="240"><br><sub><b>AI provider</b> — optional, your key, your device</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="img/scan.jpg" width="240"><br><sub><b>Scan a meal</b> — photo or gallery, sent only to your provider</sub></td>
+    <td align="center"><img src="img/coach.jpg" width="240"><br><sub><b>Coach</b> — answers built from your own logged numbers</sub></td>
+  </tr>
+</table>
 
 ---
 
@@ -72,6 +103,16 @@ No account, no key, no configuration. On a phone instead:
 ```bash
 npm start        # scan with Expo Go (SDK 52)
 ```
+
+## Download
+
+The current APK is attached to **[Releases](https://github.com/ItsAakif/Bitewise/releases/latest)**.
+It is signed with the standard React Native debug key and built by the same workflow
+that runs the checks, so Android will ask you to allow installation from an unknown
+source. That is the normal prompt for any APK that is not distributed through Play.
+
+A Play Store release needs `targetSdk 35`; Expo SDK 52 targets 34, so store submission
+requires an SDK upgrade first. Direct distribution does not.
 
 ## Build an APK
 
